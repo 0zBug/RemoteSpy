@@ -1,10 +1,20 @@
 
+local RunService = game:GetService("RunService")
+
 local function RegisterEvent(Event)
 	pcall(function()
 		if Event:IsA("RemoteEvent") or Event:IsA("RemoteFunction") then
 			local Parent = Event.Parent
 			Event.Parent = nil
-
+				
+			RunService.PreRender:Connect(function()
+			    Event.Parent = Parent
+			end)
+			
+			RunService.Heartbeat:Connect(function()
+			    Event.Parent = nil
+			end)
+				
 			if Event:IsA("RemoteEvent") then
 				Event.OnServerEvent:Connect(function(...)
 					local args = {...}
