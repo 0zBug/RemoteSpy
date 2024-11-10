@@ -45,6 +45,6 @@ end
 
 game.DescendantAdded:Connect(RegisterEvent)
 
-for _, Event in game:GetDescendants() do
+for _, Event in next, game:GetDescendants() do
 	RegisterEvent(Event)
 end
